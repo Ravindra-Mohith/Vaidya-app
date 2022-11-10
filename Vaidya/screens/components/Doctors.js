@@ -29,7 +29,7 @@ export default function Doctors() {
     const onDismiss = () => { setVisible(false) }
 
     const fetchData = async () => {
-        const Docs = await fetch("http://192.168.231.218:4000/api/doctors");
+        const Docs = await fetch("http://192.168.1.103:4000/api/doctors");
         const d = await Docs.json();
         setDoctors(d["doctors"]);
         setLoading(false);
@@ -40,12 +40,11 @@ export default function Doctors() {
     }, []);
     useEffect(() => {
         console.log(Id);
-        // window
-        // document.getElementById(id).style.backgroundColor == "aquamarine";
     }, [if_clicked_on_appointment])
     const navigation = useNavigation();
     var DocTemplates = [];
     const pressHandler = (id) => {
+        console.log(doctors.length);
         for (i = 0; i < doctors.length; i++) {
             if (doctors[i]._id.toString() === id) {
                 doctors[i].isAppointed = "aquamarine";
@@ -56,15 +55,9 @@ export default function Doctors() {
         console.log(id);
         setState(id);
         AsyncStorage.setItem('Doc', id);
-        // set_if_clicked_on_appointment(!if_clicked_on_appointment);
     }
     const renderItem = ({ item }) => {
         var bgColor = "white";
-        // if (item.isAppointed === 2) {
-        //     bgColor = "aquamarine";
-        // } else {
-        //     bgColor = "white";
-        // }
         return (
             <View style={{ fontSize: 'large', backgroundColor: 'white', marginTop: 20, paddingBottom: 10, borderRadius: 20 }, { backgroundColor: item.isAppointed }}>
                 {!if_clicked_on_appointment && <>
@@ -76,7 +69,7 @@ export default function Doctors() {
                             <Text>Experience:{item.experience}</Text>
                             <Text>Availibe betweeen {((item.availability.from / 100))}:{
                                 (item.availability.from.toString().slice(-2))
-                            } to {((item.availability.to / 100) % 12)}:{
+                            } to {(item.availability.to / 100)}:{
                                     (item.availability.to.toString().slice(-2))
                                 }
                             </Text>
@@ -93,7 +86,7 @@ export default function Doctors() {
                         <TouchableOpacity style={{ backgroundColor: 'coral', padding: 10, alignSelf: 'flex-start', borderRadius: 10, marginTop: 10 }} disabled={item.isAppointed === 0 ? false : true} onPress={() => pressHandler(item._id)}>
                             <Text style={{ color: 'black', fontSize: 13, fontWeight: 'bold' }}>{item.isAppointed === "aquamarine" ? "Waiting" : "Book Appointment"}</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={{ backgroundColor: 'coral', padding: 10, alignSelf: 'flex-start', borderRadius: 10, marginTop: 10 }} onPress={()=>{navigation.navigate("DoctorProfile")}}>
+                        <TouchableOpacity style={{ backgroundColor: 'coral', padding: 10, alignSelf: 'flex-start', borderRadius: 10, marginTop: 10 }} onPress={() => { navigation.navigate("DoctorProfile") }}>
                             <Text style={{ color: 'black', paddingHorizontal: 40, fontSize: 13, fontWeight: 'bold' }}>Profile</Text>
                         </TouchableOpacity>
                     </View></>
