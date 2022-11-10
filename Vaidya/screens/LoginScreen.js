@@ -1,7 +1,7 @@
 import * as SecureStore from 'expo-secure-store';
 import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
-import { Text, StyleSheet, TextInput, KeyboardAvoidingView, View, TouchableOpacity } from 'react-native'
+import { Text, StyleSheet, TextInput, KeyboardAvoidingView, View, TouchableOpacity, SafeAreaView, ImageBackground } from 'react-native'
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -16,7 +16,7 @@ const LoginScreen = () => {
     const handleLogin = async () => {
         var s = {}
         try {
-            const res = await axios.post("http://192.168.81.218:4000/api/users/login", {
+            const res = await axios.post("http://192.168.207.218:4000/api/users/login", {
                 email: email,
                 password: password
             })
@@ -40,10 +40,20 @@ const LoginScreen = () => {
     }
 
     return (
-        <KeyboardAvoidingView
+        <SafeAreaView
             style={styles.container}
             behavior="padding"
         >
+            <View>
+                <ImageBackground
+                    source={require("../assets/icon.png")}
+                    style={styles.input1}
+                    imageStyle={{ borderRadius: 15 }}
+                />
+                <Text style={styles.input2}>
+                    WELCOME TO VAIDYA
+                </Text>
+            </View>
             <View style={styles.inputContainer}>
                 <TextInput
                     placeholder='Email'
@@ -64,7 +74,7 @@ const LoginScreen = () => {
                     onPress={handleLogin}
                     style={styles.button}
                 >
-                    <Text style={styles.button}>Login</Text>
+                    <Text style={styles.buttonText}>Login</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={handleSignUp}
@@ -73,7 +83,7 @@ const LoginScreen = () => {
                     <Text style={styles.buttonOutlineText} >Register</Text>
                 </TouchableOpacity>
             </View>
-        </KeyboardAvoidingView>
+        </SafeAreaView>
     );
 
 }
@@ -89,20 +99,20 @@ const styles = StyleSheet.create({
     },
     input: {
         backgroundColor: 'white',
-        paddingHorizontal: 15,
-        paddingVertical: 10,
+        paddingHorizontal: 20,
+        paddingVertical: 15,
         borderRadius: 10,
-        marginTop: 5,
+        marginTop: 15,
+        marginBottom: 1,
     },
     buttonContainer: {
         width: '60%',
-        justifyContent: "center",
-        alignItems: "center",
+        justifyContent: 'center',
+        alignItems: 'center',
         marginTop: 40,
-
     },
     button: {
-        backgroundColor: "orange",
+        backgroundColor: 'orange',
         width: '100%',
         padding: 15,
         borderRadius: 10,
@@ -110,9 +120,8 @@ const styles = StyleSheet.create({
     },
     buttonOutline: {
         backgroundColor: 'purple',
-        marginTop: 10,
-        borderColor: 'white',
-        borderWidth: 2,
+        marginTop: 15,
+        borderColor: '#0782F9',
     },
     buttonText: {
         color: 'white',
@@ -123,6 +132,16 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: '700',
         fontSize: 16,
-        textAlign: 'center'
     },
+    input1: {
+        backgroundColor: "grey",
+        alignSelf: 'center',
+        height: 170, width: 170, marginBottom: 30,
+    },
+    input2: {
+        marginBottom: 35,
+        color: "red",
+        fontSize: 30,
+        textAlign: "center",
+    }
 })

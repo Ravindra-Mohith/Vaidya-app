@@ -22,14 +22,14 @@ export default function Doctors() {
         setVisible(!visible);
         setApp(!app);
         // console.log(Doctor)
-        // const doctor = await fetch("http://192.168.81.218:4000/api/doctors/");
+        // const doctor = await fetch("http://192.168.231.218:4000/api/doctors/");
         // const D = await doctor.json();
         // AsyncStorage.setItem('Doc', Doctor);
     }
     const onDismiss = () => { setVisible(false) }
 
     const fetchData = async () => {
-        const Docs = await fetch("http://192.168.81.218:4000/api/doctors");
+        const Docs = await fetch("http://192.168.231.218:4000/api/doctors");
         const d = await Docs.json();
         setDoctors(d["doctors"]);
         setLoading(false);

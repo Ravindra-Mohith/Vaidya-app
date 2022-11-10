@@ -1,8 +1,15 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { StyleSheet, View, Text, Image } from "react-native";
 import { Feather as Icon } from "@expo/vector-icons";
 
-const Page = ({ backgroundColor, iconName, title }) => {
+const Page = ({ backgroundColor, iconName, title, body }) => {
+    const styles = StyleSheet.create({
+        image: {
+            width: '100%',
+            height: '45%',
+            resizeMode: 'cover'
+        }
+    });
     return (
         <View
             style={{
@@ -12,10 +19,13 @@ const Page = ({ backgroundColor, iconName, title }) => {
                 backgroundColor,
             }}
         >
-            <Icon name={iconName} size={172} color="white" />
+            <Image source={iconName} style={styles.image} />
             <View style={{ marginTop: 16 }}>
                 <Text style={{ fontSize: 24, fontWeight: "bold", color: "white" }}>
                     {title}
+                </Text>
+                <Text style={{ fontSize: 20, color: "white" }}>
+                    {body}
                 </Text>
             </View>
         </View>

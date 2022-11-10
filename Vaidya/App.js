@@ -294,7 +294,7 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{ headerShown: false }}
-          initialRouteName="Login"
+          initialRouteName="Onboarding"
         >
           <Stack.Screen name="Onboarding" component={Onboarding} />
           {/* <AppStack.Screen name="NavBar" component={NavBar} /> */}

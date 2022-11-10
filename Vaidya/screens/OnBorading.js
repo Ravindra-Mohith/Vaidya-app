@@ -1,32 +1,111 @@
 import * as React from 'react';
 import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Constants from 'expo-constants';
-import { useNavigation } from "@react-navigation/native";
-// You can import from local files
-import GetStarted1 from './components/GetStarted1';
+import ViewPager from '@react-native-community/viewpager';
+import { useNavigation } from '@react-navigation/native';
+import { useRef } from 'react';
 
-// or any pure javascript modules available in npm
-import { Card } from 'react-native-paper';
+import Page from './components/Page';
+import Footer from './components/Footer';
 
 export default function App() {
     const navigation = useNavigation();
+    const pagerRef = useRef(null);
+
+    const handlePageChange = (pageNumber) => {
+        pagerRef.current.setPage(pageNumber);
+    };
 
     return (
-        <View style={styles.container}>
-            <GetStarted1 />
-            <TouchableOpacity onPress={this.openPopup} style={styles.next}>
-                <View>
-                    <Text>Next</Text>
+        <View style={{ flex: 1 }}>
+            <ViewPager style={{ flex: 1 }} initialPage={0} ref={pagerRef}>
+                <View key="1">
+                    <Page
+                        backgroundColor="#ffc93c"
+                        iconName={require("../assets/tutorial_imgs/Consulting.png")}
+                        title="Consulting made easy"
+                    />
+                    <Footer
+                        backgroundColor="#ffc93c"
+                        rightButtonLabel="Next"
+                        rightButtonPress={() => {
+                            handlePageChange(1);
+                        }}
+                    />
                 </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={{ alignItems: "center", justifyContent: "center" }}
-                onPress={() => { navigation.navigate("Login"); }}
-            >
-                <Text style={{ fontSize: 22, color: "white", fontWeight: "bold", backgroundColor: 'lightblue', padding: 10, marginTop: 10 }}>
-                    {'Get Started'}
-                </Text>
-            </TouchableOpacity>
+                <View key="2">
+                    <Page
+                        backgroundColor="#ffc93c"
+                        iconName={require("../assets/tutorial_imgs/Doctors.webp")}
+                        title="Check for doctor's availability"
+                    />
+                    <Footer
+                        backgroundColor="#ffc93c"
+                        leftButtonLabel="Back"
+                        leftButtonPress={() => {
+                            handlePageChange(0);
+                        }}
+                        rightButtonLabel="Next"
+                        rightButtonPress={() => {
+                            handlePageChange(2); // need to navigate to the screen containing navBar
+                        }}
+                    />
+                </View>
+                <View key="3">
+                    <Page
+                        backgroundColor="#ffc93c"
+                        iconName={require("../assets/tutorial_imgs/Appointment.webp")}
+                        title="Book an appointment online"
+                    />
+                    <Footer
+                        backgroundColor="#ffc93c"
+                        leftButtonLabel="Back"
+                        leftButtonPress={() => {
+                            handlePageChange(1);
+                        }}
+                        rightButtonLabel="Next"
+                        rightButtonPress={() => {
+                            handlePageChange(3); // need to navigate to the screen containing navBar
+                        }}
+                    />
+                </View>
+                <View key="4">
+                    <Page
+                        backgroundColor="#ffc93c"
+                        iconName={require("../assets/tutorial_imgs/Test.webp")}
+                        title="Order Lab Tests"
+                    />
+                    <Footer
+                        backgroundColor="#ffc93c"
+                        leftButtonLabel="Back"
+                        leftButtonPress={() => {
+                            handlePageChange(2);
+                        }}
+                        rightButtonLabel="Next"
+                        rightButtonPress={() => {
+                            handlePageChange(4); // need to navigate to the screen containing navBar
+                        }}
+                    />
+                </View>
+                <View key="5">
+                    <Page
+                        backgroundColor="#ffc93c"
+                        iconName={require("../assets/tutorial_imgs/File.webp")}
+                        title="Save Health Records"
+                    />
+                    <Footer
+                        backgroundColor="#ffc93c"
+                        leftButtonLabel="Back"
+                        leftButtonPress={() => {
+                            handlePageChange(3);
+                        }}
+                        rightButtonLabel="Continue"
+                        rightButtonPress={() => {
+                            navigation.navigate('Login'); // need to navigate to the screen containing navBar
+                        }}
+                    />
+                </View>
+            </ViewPager>
         </View>
     );
 }
