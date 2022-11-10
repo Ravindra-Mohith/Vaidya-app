@@ -18,3 +18,6 @@
 - **ExpressJS,Node.JS** - Server side
 - **Mongoose**(paired with local mongoDB) - for connecting server with Database
 - **MongoDB** - NoSQL Data base for storing all the required Data
+
+
+### Postman's Documentation :- https://documenter.getpostman.com/view/21503860/2s8YemvuRG of Backend server.
